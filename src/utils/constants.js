@@ -7,11 +7,14 @@ const prevBtn = document.querySelector(".prev-btn");
 const nextBtn = document.querySelector(".next-btn");
 const deleteBtn = document.querySelector(".delete-btn");
 const loaderDiv = document.querySelector(".loader");
+const thead = document.querySelector("thead");
+const tbody = document.querySelector("tbody");
 const currentPageNumberInput = document.querySelector(".current-page-number");
 const searchInput = document.querySelector(".search");
 
 const CONSTANTS = {
-  MAX_FILE_SIZE: 50 * 1024 * 1024,
+  MAX_FILE_SIZE: 130 * 1024 * 1024,
+  DEFAULT_PAGE_SIZE: 25,
 };
 
 export {
@@ -27,4 +30,6 @@ export {
   uploadBtn,
   fileInput,
   loaderDiv,
+  tbody,
+  thead,
 };

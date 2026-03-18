@@ -76,20 +76,28 @@ body{
 .slash{
     font-size: xx-large;
 }
-#page-size{
+.page-size{
     height: 30px;
     width: 60px;
     font-size: medium;
-    border: 1px solid black;
-    background-color: rgb(233,238,244);
+    border: 1px solid rgb(191, 191, 191);
+    background-color: rgb(255,255,255);
+    outline: none;
 
 }
 .current-page-number, .total-page{
-    border: solid black 1px;
+    border: solid rgb(191, 191, 191) 1px;
     padding: 5px 10px 5px 10px;
     width: 60px;
     font-size: medium;
     text-align: center;
+    outline: none;
+}
+.search-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
 }
 .search{
     height: 30px;
@@ -97,6 +105,14 @@ body{
     border: 1px solid rgb(191, 191, 191);
     padding: 0px 9px;
     font-size: medium
+}
+.column-search{
+    height: 30px;
+    font-size: medium;
+    width: 200px;
+    border: 1px solid rgb(191, 191, 191);
+    background-color: white;
+    outline: none;
 }
 .main-table-div{
     background-color: white;

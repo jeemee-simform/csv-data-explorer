@@ -27,7 +27,7 @@
       <div class="main-header">
         <div class="pagination-div">
           <div class="page-size-div">
-            <select name="page-size-select" id="page-size">
+            <select name="page-size-select" id="page-size" class="page-size">
               <option value="10">10</option>
               <option value="15">15</option>
               <option value="25">25</option>
@@ -44,7 +44,6 @@
               max="9"
               value="1"
             />
-            <!-- <div class="current-page-number">1</div> -->
             <span class="slash">/</span>
             <div class="total-page">100</div>
           </div>
@@ -58,6 +57,9 @@
 
         <div class="search-div">
           <input type="text" class="search" placeholder="Search" />
+          <select name="column" id="column-search" class="column-search">
+            <option value="all-column">All Column</option>
+          </select>
         </div>
         <div class="add-and-reset-btns">
           <div class="reset-btn">Reset</div>
@@ -86,36 +88,89 @@
                 <th>city<i class="fa-solid fa-arrow-up-long arrow"></i></th>
               </tr> -->
             </thead>
-            <tbody>
-              <!-- <tr>
-                <td><input type="checkbox" /></td>
-                <td>1</td>
-                <td>Rahul</td>
-                <td>Sharma</td>
-                <td>rahul@gmail.com</td>
-                <td>25</td>
-                <td>Male</td>
-                <td>IT</td>
-                <td>Developer</td>
-                <td>Ahmedabad</td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" /></td>
-                <td>2</td>
-                <td>Pooja</td>
-                <td>Patel</td>
-                <td>pooja@gmail.com</td>
-                <td>28</td>
-                <td>Female</td>
-                <td>HR</td>
-                <td>Manager</td>
-                <td>Surat</td>
-              </tr> -->
-            </tbody>
+            <tbody></tbody>
           </table>
         </div>
       </div>
     </main>
     <script src="./src/main.js" type="module"></script>
+
+    <button style="display: none" onclick="generateCSV()">Download CSV</button>
+    <script>
+      function randomText(length = 8) {
+        const chars = "abcdefghijklmnopqrstuvwxyz";
+        let result = "";
+        for (let i = 0; i < length; i++) {
+          result += chars[Math.floor(Math.random() * chars.length)];
+        }
+        return result;
+      }
+
+      function randomNumber() {
+        return Math.floor(Math.random() * 100000);
+      }
+
+      function randomDate() {
+        const start = new Date(2000, 0, 1).getTime();
+        const end = Date.now();
+        const d = new Date(start + Math.random() * (end - start));
+        return d.toISOString().split("T")[0];
+      }
+
+      async function generateCSV() {
+        const TOTAL_ROWS = 1_000_000;
+        const COLUMNS = 15;
+        const CHUNK_SIZE = 10000;
+
+        const parts = [];
+
+        // Header
+        const headers = [];
+        for (let i = 1; i <= COLUMNS; i++) {
+          headers.push(`column_${i}`);
+        }
+        parts.push(headers.join(",") + "\n");
+
+        for (let i = 0; i < TOTAL_ROWS; i += CHUNK_SIZE) {
+          let chunk = "";
+
+          for (let j = 0; j < CHUNK_SIZE && i + j < TOTAL_ROWS; j++) {
+            const row = [];
+
+            for (let col = 0; col < COLUMNS; col++) {
+              if (col % 3 === 0) {
+                row.push(randomText());
+              } else if (col % 3 === 1) {
+                row.push(randomNumber());
+              } else {
+                row.push(randomDate());
+              }
+            }
+
+            chunk += row.join(",") + "\n";
+          }
+
+          parts.push(chunk);
+
+          // Let UI breathe (prevents freezing)
+          await new Promise((resolve) => setTimeout(resolve, 0));
+
+          if ((i + CHUNK_SIZE) % 100000 === 0) {
+            console.log(`Generated ${i + CHUNK_SIZE} rows`);
+          }
+        }
+
+        // Create Blob and download
+        const blob = new Blob(parts, { type: "text/csv" });
+        const url = URL.createObjectURL(blob);
+
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "large_dataset.csv";
+        a.click();
+
+        URL.revokeObjectURL(url);
+      }
+    </script>
   </body>
 </html>
