@@ -43,6 +43,13 @@ const handleFileUpload = async (e) => {
       console.warn(result.errors);
     }
 
+    // Generate initial states and set it in local storage
+    const states = preProcessStates(result);
+    setStates(states);
+
+    // render table and it wil automatically get state from local storage
+    // renderTable();
+
     setTimeout(() => hideLoader(), 0); // hide loader
   } catch (err) {
     console.error(err);
