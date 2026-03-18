@@ -7,7 +7,7 @@ import {
   setStates,
 } from "../utils/helper.js";
 import { preProcessStates } from "../services/preProcessStates.js";
-import { renderTable } from "../services/renderTable.js";
+import { renderUi } from "../services/renderComponent.js";
 
 const handleFileUpload = async (e) => {
   try {
@@ -47,8 +47,8 @@ const handleFileUpload = async (e) => {
     const states = preProcessStates(result);
     setStates(states);
 
-    // render table and it wil automatically get state from local storage
-    // renderTable();
+    // render whole ui including (table and headers)
+    renderUi();
 
     setTimeout(() => hideLoader(), 0); // hide loader
   } catch (err) {

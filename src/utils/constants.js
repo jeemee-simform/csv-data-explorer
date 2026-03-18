@@ -9,6 +9,10 @@ const deleteBtn = document.querySelector(".delete-btn");
 const loaderDiv = document.querySelector(".loader");
 const thead = document.querySelector("thead");
 const tbody = document.querySelector("tbody");
+const mainHeader = document.querySelector(".main-header");
+const empty = document.querySelector(".empty");
+const columnSearch = document.querySelector(".column-search");
+const pageSize = document.querySelector(".page-size");
 const currentPageNumberInput = document.querySelector(".current-page-number");
 const searchInput = document.querySelector(".search");
 
@@ -32,4 +36,8 @@ export {
   loaderDiv,
   tbody,
   thead,
+  mainHeader,
+  empty,
+  columnSearch,
+  pageSize,
 };

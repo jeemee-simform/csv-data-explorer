@@ -1,4 +1,5 @@
 import { handleFileUpload } from "./controllers/fileUploadController.js";
+import { renderUi } from "./services/renderComponent.js";
 import {
   addDataBtn,
   currentPageNumberInput,
@@ -20,3 +21,5 @@ nextBtn.addEventListener("click", () => {});
 deleteBtn.addEventListener("click", () => {});
 currentPageNumberInput.addEventListener("input", () => {});
 searchInput.addEventListener("input", () => {});
+
+renderUi();
