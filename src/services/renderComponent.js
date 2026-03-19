@@ -29,8 +29,8 @@ function renderTableBody() {
 
       states.headers.forEach((e) => {
         const td = document.createElement("td");
-        const cellData = row[e.header] ?? "";
-        td.textContent = e.type == "date" ? formateDate(cellData) : cellData; // check value is present or not
+        const cellData = row[e.header] ?? ""; // check value is present or not
+        td.textContent = e.type == "date" ? formateDate(cellData) : cellData;
         tr.appendChild(td);
       });
 
