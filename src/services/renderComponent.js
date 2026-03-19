@@ -1,43 +1,64 @@
 import {
+  currentPageNumberInput,
   empty,
   exportBtn,
   mainHeader,
-  pageSize,
   tbody,
+  currentPageSize,
   thead,
+  totalPage,
 } from "../utils/constants.js";
-import { getStates } from "../utils/helper.js";
+import { formateDate, getStates } from "../utils/helper.js";
 
-function renderTable() {
+function renderTableBody() {
   const states = getStates();
   if (states) {
+    const { pageNumber, pageSize } = states.pagination;
+
     // clear previous
     tbody.innerHTML = "";
 
     // create body rows fragment
     const fragment = document.createDocumentFragment();
+    const rows = states.filteredData; // array of object of filtered data
+    const temp = (pageNumber - 1) * pageSize;
 
-    states.filteredData.forEach((row) => {
+    for (let idx = temp; idx < temp + pageSize && idx < rows.length; idx++) {
+      const row = rows[idx]; // current row object
       const tr = document.createElement("tr");
 
       states.headers.forEach((e) => {
         const td = document.createElement("td");
-        td.textContent = row[e.header] ?? ""; // check value is present or not
+        const cellData = row[e.header] ?? "";
+        td.textContent = e.type == "date" ? formateDate(cellData) : cellData; // check value is present or not
         tr.appendChild(td);
       });
 
       fragment.appendChild(tr);
-    });
+    }
+
+    // states.filteredData
+    //   .slice((pageNumber - 1) * pageSize, pageSize)
+    //   .forEach((row) => {
+    //     const tr = document.createElement("tr");
+
+    //     states.headers.forEach((e) => {
+    //       const td = document.createElement("td");
+    //       const cellData = row[e.header] ?? "";
+    //       td.textContent = e.type == "date" ? formateDate(cellData) : cellData; // check value is present or not
+    //       tr.appendChild(td);
+    //     });
+
+    //     fragment.appendChild(tr);
+    //   });
 
     tbody.appendChild(fragment);
   }
 }
 
-const renderHeaders = () => {
+const renderTableHeaders = () => {
   const states = getStates();
   if (states) {
-    const { pageSize, pageNumber, totalPage } = states.pagination;
-
     // clear previous
     thead.innerHTML = "";
 
@@ -65,10 +86,13 @@ const renderUi = () => {
     empty.style.display = "none";
     exportBtn.style.display = "block";
     mainHeader.style.display = "flex";
-    pageSize.value = states.pagination.pageSize;
+    currentPageSize.value = states.pagination.pageSize;
+    totalPage.textContent = states.pagination.totalPage;
+    currentPageNumberInput.value = states.pagination.pageNumber;
+    currentPageNumberInput.max = states.pagination.totalPage;
   }
-  renderHeaders();
-  renderTable();
+  renderTableHeaders();
+  renderTableBody();
 };
 
-export { renderTable, renderUi, renderHeaders };
+export { renderTableBody, renderUi, renderTableHeaders };

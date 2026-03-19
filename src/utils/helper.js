@@ -8,7 +8,22 @@ const hideLoader = () => (loaderDiv.style.display = "none"); // Hide loader help
 
 const getStates = () => JSON.parse(localStorage.getItem("states")); // Get states from local storage
 
-const setStates = (states) =>
-  localStorage.setItem("states", JSON.stringify(states)); // Set states in to local storage
+const formateDate = (date) => date.split("T")[0]; // convert date obj into string yyyy-mm-dd
 
-export { showError, hideLoader, showLoader, getStates, setStates };
+// find out new page number from persistIndex
+const findPageNumber = (newPageSize, persistIndex) =>
+  Math.ceil(persistIndex / newPageSize);
+
+// Set states in to local storage
+const setStates = (states) =>
+  localStorage.setItem("states", JSON.stringify(states));
+
+export {
+  showError,
+  hideLoader,
+  showLoader,
+  getStates,
+  setStates,
+  formateDate,
+  findPageNumber,
+};

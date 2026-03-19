@@ -12,7 +12,8 @@ const tbody = document.querySelector("tbody");
 const mainHeader = document.querySelector(".main-header");
 const empty = document.querySelector(".empty");
 const columnSearch = document.querySelector(".column-search");
-const pageSize = document.querySelector(".page-size");
+const currentPageSize = document.querySelector(".page-size");
+const totalPage = document.querySelector(".total-page");
 const currentPageNumberInput = document.querySelector(".current-page-number");
 const searchInput = document.querySelector(".search");
 
@@ -39,5 +40,6 @@ export {
   mainHeader,
   empty,
   columnSearch,
-  pageSize,
+  currentPageSize,
+  totalPage,
 };
