@@ -18,6 +18,20 @@ const findPageNumber = (newPageSize, persistIndex) =>
 const setStates = (states) =>
   localStorage.setItem("states", JSON.stringify(states));
 
+// find header obj from states
+const findHeaderObj = (header) =>
+  getStates().headers.find((h) => h.header === header);
+
+const getUId = () => {
+  const { originalData } = getStates();
+  return originalData[originalData.length - 1]._id + 1;
+};
+
+// remove element from array
+Array.prototype.remove = function (_id) {
+  return this.filter((e) => e != _id);
+};
+
 export {
   showError,
   hideLoader,
@@ -26,4 +40,6 @@ export {
   setStates,
   formateDate,
   findPageNumber,
+  findHeaderObj,
+  getUId,
 };

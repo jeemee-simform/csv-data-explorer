@@ -167,15 +167,13 @@ th {
 .arrow{
     margin-left: 5px;
     visibility: hidden;
+    transition: transform 0.3s ease;
+}
+.desc {
+  transform: rotate(180deg);
 }
 th:hover{
     .arrow{
         visibility: visible;
-        transition: 300ms;
-    }
-}
-th:active{
-    .arrow{
-        rotate: 180deg;
     }
 }

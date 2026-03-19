@@ -12,13 +12,15 @@ const preProcessStates = ({ data, headers }) => {
       totalPage: Math.ceil(data.length / CONSTANTS.DEFAULT_PAGE_SIZE),
     },
     sort: {
-      sortBy: headers[0],
-      sortType: "asc",
+      sortBy: null,
+      sortType: null,
+      cellIndex: null,
     },
     search: {
       searchBy: "all",
       searchText: "",
     },
+    selectedRows: [],
   };
   return states;
 };

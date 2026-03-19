@@ -82,7 +82,9 @@ const convertIntoJSON = (rows) => {
       continue;
     }
 
-    const obj = {};
+    const obj = {
+      _id: i,
+    };
 
     headers.forEach((key, index) => {
       let value = row[index].trim();
