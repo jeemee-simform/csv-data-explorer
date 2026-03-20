@@ -1,3 +1,0 @@
-const handleAddData = () => {};
-
-export { handleAddData };

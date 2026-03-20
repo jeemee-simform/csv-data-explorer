@@ -1,6 +1,6 @@
 import { sortFilteredData } from "../services/applySortData.js";
 import { searchData } from "../services/search.js";
-import { currentPageSize, loaderDiv } from "./constants.js";
+import { currentPageSize, loaderDiv, modalOverlay } from "./constants.js";
 
 const showError = (message) => alert(message); // Error show helper
 
@@ -62,6 +62,8 @@ const updateFilteredData = () => {
 
 const searchWithDebounce = debounce(updateFilteredData, 300); // make search with debounce
 
+const closeModal = () => (modalOverlay.style.display = "none");
+
 export {
   showError,
   hideLoader,
@@ -76,4 +78,5 @@ export {
   updateFilteredData,
   updatePagination,
   searchWithDebounce,
+  closeModal,
 };

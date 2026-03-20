@@ -16,7 +16,11 @@ const currentPageSize = document.querySelector(".page-size");
 const totalPage = document.querySelector(".total-page");
 const currentPageNumberInput = document.querySelector(".current-page-number");
 const searchInput = document.querySelector(".search");
-const dynamicForm = document.querySelector(".dynamicForm");
+const dynamicForm = document.querySelector(".dynamic-form");
+const submitBtn = document.querySelector('[type="submit"]');
+const modalOverlay = document.querySelector(".modal-overlay");
+const closeModalBtn = document.querySelector(".close-btn");
+const cancelModalBtn = document.querySelector(".cancel-btn");
 
 const CONSTANTS = {
   MAX_FILE_SIZE: 130 * 1024 * 1024,
@@ -44,4 +48,8 @@ export {
   currentPageSize,
   totalPage,
   dynamicForm,
+  submitBtn,
+  modalOverlay,
+  cancelModalBtn,
+  closeModalBtn,
 };

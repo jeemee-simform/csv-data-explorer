@@ -19,7 +19,6 @@ import {
   currentPageNumberInput,
   currentPageSize,
   deleteBtn,
-  dynamicForm,
   exportBtn,
   nextBtn,
   prevBtn,
@@ -30,11 +29,13 @@ import {
   uploadBtn,
 } from "./utils/constants.js";
 import { handleResetBtn } from "./controllers/reset.js";
-import { handleExport } from "./controllers/exportController.js";
+import { handleExport } from "./controllers/exportDataController.js";
+import { handleOpenAddModal } from "./controllers/openModalController.js";
+import { handleFormSubmit } from "./controllers/formSubmitController.js";
 
 uploadBtn.addEventListener("click", handleFileUpload);
 exportBtn.addEventListener("click", handleExport);
-addDataBtn.addEventListener("click", handleAddData);
+addDataBtn.addEventListener("click", handleOpenAddModal);
 resetBtn.addEventListener("click", handleResetBtn);
 prevBtn.addEventListener("click", handlePrevBtn);
 nextBtn.addEventListener("click", handleNextBtn);
