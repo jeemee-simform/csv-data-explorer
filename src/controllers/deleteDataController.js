@@ -1,7 +1,5 @@
-import { sortFilteredData } from "../services/applySortData.js";
 import { renderUi } from "../services/renderComponent.js";
-import { currentPageSize, thead } from "../utils/constants.js";
-import { getStates, setStates } from "../utils/helper.js";
+import { getStates, setStates, updateFilteredData } from "../utils/helper.js";
 
 const handleDelete = () => {
   try {
@@ -14,12 +12,8 @@ const handleDelete = () => {
     states.filteredData = states.originalData;
     setStates(states);
 
-    // manually fire event pagesize
-    const pageEvent = new Event("change");
-    currentPageSize.dispatchEvent(pageEvent);
-
-    // sort again data and store in filtered data so maintain sorted state
-    sortFilteredData();
+    // update filtered data so maintain sorted state
+    updateFilteredData();
 
     renderUi();
   } catch (err) {

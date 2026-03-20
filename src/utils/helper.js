@@ -1,4 +1,6 @@
-import { loaderDiv } from "./constants.js";
+import { sortFilteredData } from "../services/applySortData.js";
+import { searchData } from "../services/search.js";
+import { currentPageSize, loaderDiv } from "./constants.js";
 
 const showError = (message) => alert(message); // Error show helper
 
@@ -22,6 +24,7 @@ const setStates = (states) =>
 const findHeaderObj = (header) =>
   getStates().headers.find((h) => h.header === header);
 
+// create next unique id for add data
 const getUId = () => {
   const { originalData } = getStates();
   return originalData[originalData.length - 1]._id + 1;
@@ -30,6 +33,30 @@ const getUId = () => {
 // remove element from array
 Array.prototype.remove = function (_id) {
   return this.filter((e) => e != _id);
+};
+
+// make any function into debounced function
+function debounce(fn, delay = 300) {
+  let timer;
+  return function (...args) {
+    clearTimeout(timer);
+    timer = setTimeout(() => fn.apply(this, args), delay);
+  };
+}
+
+// update pagination
+const updatePagination = () => {
+  console.log("pagination");
+
+  const pageEvent = new Event("change");
+  currentPageSize.dispatchEvent(pageEvent);
+};
+
+// update filtered data with search and sort
+const updateFilteredData = () => {
+  searchData();
+  sortFilteredData();
+  updatePagination();
 };
 
 export {
@@ -42,4 +69,7 @@ export {
   findPageNumber,
   findHeaderObj,
   getUId,
+  debounce,
+  updateFilteredData,
+  updatePagination,
 };

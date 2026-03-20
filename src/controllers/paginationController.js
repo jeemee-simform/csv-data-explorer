@@ -77,11 +77,14 @@ const handleChangePageSize = () => {
   try {
     const states = getStates();
     const {
-      originalData: data,
       pagination: { persistIndex },
+      filteredData: data,
     } = states;
     const newPageSize = Number(currentPageSize.value);
-    const newPageNumber = findPageNumber(newPageSize, persistIndex);
+    const newPageNumber =
+      persistIndex >= data.length
+        ? 1
+        : findPageNumber(newPageSize, persistIndex);
 
     // update new state
     states.pagination.pageSize = newPageSize;

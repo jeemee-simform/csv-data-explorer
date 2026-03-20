@@ -8,6 +8,8 @@ import {
   currentPageSize,
   thead,
   totalPage,
+  columnSearch,
+  searchInput,
 } from "../utils/constants.js";
 import { formateDate, getStates, setStates } from "../utils/helper.js";
 
@@ -89,7 +91,10 @@ const renderTableHeaders = () => {
     // because if we put event listener in main file so it wil run first and gibe null
     selectAll.addEventListener("change", handleSelectAll);
 
+    const fragment = document.createDocumentFragment();
+
     headers.forEach((e) => {
+      // create header cell
       const th = document.createElement("th");
       th.textContent = e.header;
       th.dataset.header = e.header;
@@ -97,6 +102,11 @@ const renderTableHeaders = () => {
       // create sorting arrow and append in header
       const arrow = document.createElement("i");
       arrow.classList.add("fa-solid", "fa-arrow-up-long", "arrow");
+
+      // create columnSearch select
+      const option = document.createElement("option");
+      option.value = e.header;
+      option.textContent = e.header;
 
       // handle arrow toggle
       if (sortBy === e.header) {
@@ -111,19 +121,29 @@ const renderTableHeaders = () => {
         }
       }
 
+      fragment.appendChild(option);
       th.appendChild(arrow); // arrow append in header
       tr.appendChild(th); // header append in tr
     });
+    columnSearch.appendChild(fragment); // add select column render
     thead.appendChild(tr); // hall tr append in thead
   }
 };
 
 const renderUi = () => {
   const states = getStates();
+
+  // first render whole ui
+  renderTableHeaders();
+  renderTableBody();
+
+  // and then render default states
   if (states) {
     empty.style.display = "none";
     exportBtn.style.display = "block";
     mainHeader.style.display = "flex";
+    searchInput.value = states.search.searchText;
+    columnSearch.value = states.search.searchBy;
     currentPageSize.value = states.pagination.pageSize;
     totalPage.textContent = states.pagination.totalPage;
     currentPageNumberInput.value = states.pagination.pageNumber;
@@ -131,8 +151,6 @@ const renderUi = () => {
     states.selectedRows = [];
   }
   setStates(states);
-  renderTableHeaders();
-  renderTableBody();
 };
 
 export { renderTableBody, renderUi, renderTableHeaders };
