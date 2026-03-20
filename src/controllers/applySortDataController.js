@@ -9,8 +9,6 @@ import {
 
 const handleSorting = (e) => {
   try {
-    console.log("sort controller");
-
     const th = e.target.closest("th");
     const header = th.dataset?.header;
     const states = getStates();

@@ -26,8 +26,11 @@ const findHeaderObj = (header) =>
 
 // create next unique id for add data
 const getUId = () => {
-  const { originalData } = getStates();
-  return originalData[originalData.length - 1]._id + 1;
+  const states = getStates();
+  const { uId } = states;
+  states.uId = uId + 1;
+  setStates(states);
+  return uId;
 };
 
 // remove element from array
@@ -46,8 +49,6 @@ function debounce(fn, delay = 300) {
 
 // update pagination
 const updatePagination = () => {
-  console.log("pagination");
-
   const pageEvent = new Event("change");
   currentPageSize.dispatchEvent(pageEvent);
 };
@@ -58,6 +59,8 @@ const updateFilteredData = () => {
   sortFilteredData();
   updatePagination();
 };
+
+const searchWithDebounce = debounce(updateFilteredData, 300); // make search with debounce
 
 export {
   showError,
@@ -72,4 +75,5 @@ export {
   debounce,
   updateFilteredData,
   updatePagination,
+  searchWithDebounce,
 };

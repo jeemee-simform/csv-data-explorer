@@ -21,6 +21,7 @@ const preProcessStates = ({ data, headers }) => {
       searchText: "",
     },
     selectedRows: [],
+    uId: data.length + 1,
   };
   return states;
 };

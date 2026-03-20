@@ -7,8 +7,6 @@ const searchData = () => {
     originalData,
   } = states;
 
-  console.log("search");
-
   // If empty reset it
   if (!searchText) {
     states.filteredData = [...originalData];

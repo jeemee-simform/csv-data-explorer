@@ -1,0 +1,3 @@
+const handleFormSubmit = () => {};
+
+export { handleFormSubmit };

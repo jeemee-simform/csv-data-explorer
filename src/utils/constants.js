@@ -16,6 +16,7 @@ const currentPageSize = document.querySelector(".page-size");
 const totalPage = document.querySelector(".total-page");
 const currentPageNumberInput = document.querySelector(".current-page-number");
 const searchInput = document.querySelector(".search");
+const dynamicForm = document.querySelector(".dynamicForm");
 
 const CONSTANTS = {
   MAX_FILE_SIZE: 130 * 1024 * 1024,
@@ -42,4 +43,5 @@ export {
   columnSearch,
   currentPageSize,
   totalPage,
+  dynamicForm,
 };

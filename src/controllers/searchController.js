@@ -3,6 +3,7 @@ import { columnSearch } from "../utils/constants.js";
 import {
   debounce,
   getStates,
+  searchWithDebounce,
   setStates,
   updateFilteredData,
 } from "../utils/helper.js";
@@ -17,10 +18,7 @@ const handleSearch = (e) => {
     setStates(states);
 
     // searching with debounced
-    const searchWithDebounce = debounce(updateFilteredData, 300);
     searchWithDebounce();
-
-    renderUi();
   } catch (err) {
     console.error(err);
     return showError(err.message);

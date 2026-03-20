@@ -11,7 +11,7 @@ import {
   handleColumnSearch,
   handleSearch,
 } from "./controllers/searchController.js";
-import { handleSorting } from "./controllers/sortingController.js";
+import { handleSorting } from "./controllers/applySortDataController.js";
 import { renderUi } from "./services/renderComponent.js";
 import {
   addDataBtn,
@@ -19,6 +19,7 @@ import {
   currentPageNumberInput,
   currentPageSize,
   deleteBtn,
+  dynamicForm,
   exportBtn,
   nextBtn,
   prevBtn,
@@ -29,10 +30,11 @@ import {
   uploadBtn,
 } from "./utils/constants.js";
 import { handleResetBtn } from "./controllers/reset.js";
+import { handleExport } from "./controllers/exportController.js";
 
 uploadBtn.addEventListener("click", handleFileUpload);
-exportBtn.addEventListener("click", () => {});
-addDataBtn.addEventListener("click", () => {});
+exportBtn.addEventListener("click", handleExport);
+addDataBtn.addEventListener("click", handleAddData);
 resetBtn.addEventListener("click", handleResetBtn);
 prevBtn.addEventListener("click", handlePrevBtn);
 nextBtn.addEventListener("click", handleNextBtn);
@@ -43,5 +45,6 @@ searchInput.addEventListener("input", handleSearch);
 columnSearch.addEventListener("change", handleColumnSearch);
 thead.addEventListener("click", handleSorting);
 tbody.addEventListener("change", handleSelectCheckbox);
+dynamicForm.addEventListener("submit", handleFormSubmit);
 
 renderUi();

@@ -1,10 +1,17 @@
 import { renderUi } from "../services/renderComponent.js";
-import { getStates, setStates, updateFilteredData } from "../utils/helper.js";
+import {
+  getStates,
+  setStates,
+  showError,
+  updateFilteredData,
+} from "../utils/helper.js";
 
 const handleDelete = () => {
   try {
     const states = getStates();
     const { selectedRows, originalData } = states;
+
+    if (!selectedRows.length) return showError("Please select row");
 
     states.originalData = originalData.filter(
       (e) => !selectedRows.includes(e._id),

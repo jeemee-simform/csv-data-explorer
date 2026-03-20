@@ -4,28 +4,16 @@
     box-sizing: border-box;
     font-family: 'Times New Roman', Times, serif;
 }
-
 body{
     background-color: rgb(233,238,244);
     padding: 0 90px 0 90px;
     position: relative;
 }
-
 .loader{
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
     display: none;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 11;
     color: white;
     font-size: xxx-large;
 }
-
 .header-div{
     display: flex;
     height: 50px;
@@ -176,4 +164,106 @@ th:hover{
     .arrow{
         visibility: visible;
     }
+}
+mark{
+    background-color: aqua;
+}
+.back-hide{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  justify-content: center;
+  align-items: center;
+
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(6px);
+
+  z-index: 1000;
+}
+.modal-overlay {
+    display: none; 
+}
+.modal {
+  background: rgb(233,238,244);
+  width: 400px;
+  max-width: 90%;
+  max-height: 85vh;
+
+  border-radius: 12px;
+  padding: 20px;
+
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 15px;
+}
+.modal-header h3 {
+  margin: 0;
+  font-size: 18px;
+}
+.close-btn {
+  cursor: pointer;
+  font-size: 18px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: background 0.2s ease;
+}
+.close-btn:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+.dynamic-form {
+  overflow-y: auto;
+  flex: 1;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 12px;
+}
+.form-group label {
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+.form-group input {
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+.form-group input:focus {
+  outline: none;
+  border-color: #007bff;
+}
+.modal-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+.modal-footer button {
+  padding: 8px 16px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+}
+.cancel-btn {
+  background: rgb(205, 205, 205);
+}
+.modal-footer button[type="submit"] {
+  background: #007bff;
+  color: white;
+}
+.modal-footer button:hover {
+  opacity: 0.9;
 }

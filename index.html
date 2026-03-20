@@ -12,19 +12,28 @@
     <link rel="stylesheet" href="./styles/index.css" />
   </head>
   <body>
-    <div class="loader">
+    <!-- loader -->
+    <div class="loader back-hide">
       <span>Loading...</span>
     </div>
+
+    <!-- header -->
     <header class="header-div">
+      <!-- file choose -->
       <input type="file" class="select-file" accept=".csv" />
 
+      <!-- upload and export btn  -->
       <div class="header-btns">
         <div class="upload-btn">Upload</div>
         <div class="export-btn">Export</div>
       </div>
     </header>
+
+    <!-- main content  -->
     <main class="main-div">
+      <!-- main content header -->
       <div class="main-header">
+        <!-- all pagination related functionality -->
         <div class="pagination-div">
           <div class="page-size-div">
             <select name="page-size-select" id="page-size" class="page-size">
@@ -49,17 +58,22 @@
           </div>
         </div>
 
+        <!-- all search re;lated functionality -->
         <div class="search-div">
           <input type="text" class="search" placeholder="Search" />
           <select name="column" id="column-search" class="column-search">
             <option value="all">All Column</option>
           </select>
         </div>
+
+        <!-- reset and add data btn -->
         <div class="add-and-reset-btns">
           <div class="reset-btn">Reset</div>
           <div class="add-data-btn">Add Data</div>
         </div>
       </div>
+
+      <!-- main table view  -->
       <div class="main-table-div">
         <div class="table-container">
           <span class="empty">EMPTY</span>
@@ -70,84 +84,29 @@
         </div>
       </div>
     </main>
+
+    <!-- add data modal -->
+    <div id="modalOverlay" class="modal-overlay back-hide">
+      <div class="modal">
+        <!-- header -->
+        <div class="modal-header">
+          <h3>Add Data</h3>
+          <span id="closeModal" class="close-btn">✖</span>
+        </div>
+
+        <!-- dynamic form goes here -->
+        <form id="dynamicForm" class="dynamic-form"></form>
+
+        <!-- footer -->
+        <div class="modal-footer">
+          <button id="cancelBtn" class="cancel-btn" type="button">
+            Cancel
+          </button>
+          <button type="submit" form="dynamicForm">Save</button>
+        </div>
+      </div>
+    </div>
+
     <script src="./src/main.js" type="module"></script>
-
-    <button style="display: none" onclick="generateCSV()">Download CSV</button>
-    <script>
-      function randomText(length = 8) {
-        const chars = "abcdefghijklmnopqrstuvwxyz";
-        let result = "";
-        for (let i = 0; i < length; i++) {
-          result += chars[Math.floor(Math.random() * chars.length)];
-        }
-        return result;
-      }
-
-      function randomNumber() {
-        return Math.floor(Math.random() * 100000);
-      }
-
-      function randomDate() {
-        const start = new Date(2000, 0, 1).getTime();
-        const end = Date.now();
-        const d = new Date(start + Math.random() * (end - start));
-        return d.toISOString().split("T")[0];
-      }
-
-      async function generateCSV() {
-        const TOTAL_ROWS = 1_000_000;
-        const COLUMNS = 15;
-        const CHUNK_SIZE = 10000;
-
-        const parts = [];
-
-        // Header
-        const headers = [];
-        for (let i = 1; i <= COLUMNS; i++) {
-          headers.push(`column_${i}`);
-        }
-        parts.push(headers.join(",") + "\n");
-
-        for (let i = 0; i < TOTAL_ROWS; i += CHUNK_SIZE) {
-          let chunk = "";
-
-          for (let j = 0; j < CHUNK_SIZE && i + j < TOTAL_ROWS; j++) {
-            const row = [];
-
-            for (let col = 0; col < COLUMNS; col++) {
-              if (col % 3 === 0) {
-                row.push(randomText());
-              } else if (col % 3 === 1) {
-                row.push(randomNumber());
-              } else {
-                row.push(randomDate());
-              }
-            }
-
-            chunk += row.join(",") + "\n";
-          }
-
-          parts.push(chunk);
-
-          // Let UI breathe (prevents freezing)
-          await new Promise((resolve) => setTimeout(resolve, 0));
-
-          if ((i + CHUNK_SIZE) % 100000 === 0) {
-            console.log(`Generated ${i + CHUNK_SIZE} rows`);
-          }
-        }
-
-        // Create Blob and download
-        const blob = new Blob(parts, { type: "text/csv" });
-        const url = URL.createObjectURL(blob);
-
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = "large_dataset.csv";
-        a.click();
-
-        URL.revokeObjectURL(url);
-      }
-    </script>
   </body>
 </html>

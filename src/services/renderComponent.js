@@ -16,7 +16,10 @@ import { formateDate, getStates, setStates } from "../utils/helper.js";
 function renderTableBody() {
   const states = getStates();
   if (states) {
-    const { pageNumber, pageSize } = states.pagination;
+    const {
+      pagination: { pageNumber, pageSize },
+      search: { searchText, searchBy },
+    } = states;
 
     // clear previous
     tbody.innerHTML = "";
@@ -41,7 +44,17 @@ function renderTableBody() {
       states.headers.forEach((e) => {
         const td = document.createElement("td");
         const cellData = row[e.header] ?? ""; // check value is present or not
-        td.textContent = e.type == "date" ? formateDate(cellData) : cellData;
+
+        // render highlight text
+        let value =
+          e.type == "date" ? formateDate(cellData) : String(cellData ?? "");
+
+        if (searchText && (searchBy === "all" || searchBy === e.header)) {
+          td.appendChild(highlightTextNode(value, searchText));
+        } else {
+          td.textContent = value;
+        }
+
         tr.appendChild(td);
       });
 
@@ -152,5 +165,34 @@ const renderUi = () => {
   }
   setStates(states);
 };
+
+function highlightTextNode(text, searchText) {
+  const fragment = document.createDocumentFragment();
+
+  const lowerText = text.toLowerCase();
+  const lowerSearch = searchText.toLowerCase();
+
+  let start = 0;
+  let index;
+
+  while ((index = lowerText.indexOf(lowerSearch, start)) !== -1) {
+    if (index > start) {
+      fragment.appendChild(document.createTextNode(text.slice(start, index)));
+    }
+
+    const mark = document.createElement("mark");
+    mark.textContent = text.slice(index, index + lowerSearch.length);
+
+    fragment.appendChild(mark);
+
+    start = index + lowerSearch.length;
+  }
+
+  if (start < text.length) {
+    fragment.appendChild(document.createTextNode(text.slice(start)));
+  }
+
+  return fragment;
+}
 
 export { renderTableBody, renderUi, renderTableHeaders };

@@ -16,7 +16,6 @@ const handleChangePageNumber = (e) => {
     const min = Number(e.target.min);
 
     if (newPageNumber === prePageNumber) return;
-    console.log(min, max, pageSize);
 
     if (newPageNumber > max) newPageNumber = max;
     if (newPageNumber < min) newPageNumber = min;

@@ -11,8 +11,6 @@ const sortFilteredData = () => {
   //null check
   if (!sortBy || !sortType) return;
 
-  console.log("sort");
-
   // find header obj from states.
   const dataType = findHeaderObj(sortBy).type;
 
