@@ -1,9 +1,9 @@
-import { renderUi } from "../services/renderComponent.js";
 import {
   getStates,
   setStates,
   showError,
   updateFilteredData,
+  updateUi,
 } from "../utils/helper.js";
 
 const handleDelete = () => {
@@ -22,7 +22,7 @@ const handleDelete = () => {
     // update filtered data so maintain sorted state
     updateFilteredData();
 
-    renderUi();
+    updateUi();
   } catch (err) {
     console.error(err);
     return showError(err.message);

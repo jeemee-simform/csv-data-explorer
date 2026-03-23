@@ -5,9 +5,9 @@ import {
   showError,
   showLoader,
   setStates,
+  updateUi,
 } from "../utils/helper.js";
 import { preProcessStates } from "../services/preProcessStates.js";
-import { renderUi } from "../services/renderComponent.js";
 
 const handleFileUpload = async (e) => {
   try {
@@ -48,7 +48,7 @@ const handleFileUpload = async (e) => {
     setStates(states);
 
     // render whole ui including (table and headers)
-    renderUi();
+    updateUi();
 
     setTimeout(() => hideLoader(), 0); // hide loader
   } catch (err) {

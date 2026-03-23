@@ -12,7 +12,6 @@ import {
   handleSearch,
 } from "./controllers/searchController.js";
 import { handleSorting } from "./controllers/applySortDataController.js";
-import { renderUi } from "./services/renderComponent.js";
 import {
   addDataBtn,
   columnSearch,
@@ -32,6 +31,7 @@ import { handleResetBtn } from "./controllers/reset.js";
 import { handleExport } from "./controllers/exportDataController.js";
 import { handleOpenAddModal } from "./controllers/openModalController.js";
 import { handleFormSubmit } from "./controllers/formSubmitController.js";
+import { updateUi } from "./utils/helper.js";
 
 uploadBtn.addEventListener("click", handleFileUpload);
 exportBtn.addEventListener("click", handleExport);
@@ -48,4 +48,4 @@ thead.addEventListener("click", handleSorting);
 tbody.addEventListener("change", handleSelectCheckbox);
 dynamicForm.addEventListener("submit", handleFormSubmit);
 
-renderUi();
+updateUi();

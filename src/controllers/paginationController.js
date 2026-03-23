@@ -1,10 +1,9 @@
-import { renderUi } from "../services/renderComponent.js";
 import { currentPageNumberInput, currentPageSize } from "../utils/constants.js";
 import {
   getStates,
-  setStates,
   showError,
   findPageNumber,
+  updateUi,
 } from "../utils/helper.js";
 
 const handleChangePageNumber = (e) => {
@@ -15,15 +14,22 @@ const handleChangePageNumber = (e) => {
     const max = Number(e.target.max);
     const min = Number(e.target.min);
 
-    if (newPageNumber === prePageNumber) return;
+    // if invalid input then make first page
+    if (isNaN(newPageNumber)) newPageNumber = min;
 
-    if (newPageNumber > max) newPageNumber = max;
-    if (newPageNumber < min) newPageNumber = min;
+    // handle decimal value and make it floor value
+    newPageNumber = Math.floor(newPageNumber);
+
+    // make page with in range
+    newPageNumber = Math.max(min, Math.min(max, newPageNumber));
+
+    if (newPageNumber === prePageNumber) return;
 
     states.pagination.pageNumber = newPageNumber;
     states.pagination.persistIndex = (newPageNumber - 1) * pageSize;
-    setStates(states);
-    renderUi();
+
+    // update states and render UI
+    updateUi(states);
   } catch (err) {
     console.error(err);
     return showError(err.message);
@@ -38,19 +44,23 @@ const handleNextBtn = (e) => {
       persistIndex,
       pageSize,
     } = states.pagination;
+
     const max = currentPageNumberInput.max;
 
-    if (prePageNumber < max) {
-      states.pagination.pageNumber = prePageNumber + 1;
-      states.pagination.persistIndex = persistIndex + pageSize;
-      setStates(states);
-      renderUi();
-    }
+    // check max limit
+    if (prePageNumber >= max) return;
+
+    states.pagination.pageNumber = prePageNumber + 1;
+    states.pagination.persistIndex = persistIndex + pageSize;
+
+    // update states and render UI
+    updateUi(states);
   } catch (err) {
     console.error(err);
     return showError(err.message);
   }
 };
+
 const handlePrevBtn = (e) => {
   try {
     const states = getStates();
@@ -59,13 +69,17 @@ const handlePrevBtn = (e) => {
       persistIndex,
       pageSize,
     } = states.pagination;
+
     const min = currentPageNumberInput.min;
-    if (prePageNumber > min) {
-      states.pagination.pageNumber = prePageNumber - 1;
-      states.pagination.persistIndex = persistIndex - pageSize;
-      setStates(states);
-      renderUi();
-    }
+
+    // check min limit
+    if (prePageNumber <= min) return;
+
+    states.pagination.pageNumber = prePageNumber - 1;
+    states.pagination.persistIndex = persistIndex - pageSize;
+
+    // update states and render UI
+    updateUi(states);
   } catch (err) {
     console.error(err);
     return showError(err.message);
@@ -79,6 +93,8 @@ const handleChangePageSize = () => {
       pagination: { persistIndex },
       filteredData: data,
     } = states;
+
+    // new values
     const newPageSize = Number(currentPageSize.value);
     const newPageNumber =
       persistIndex >= data.length
@@ -92,8 +108,7 @@ const handleChangePageSize = () => {
     states.pagination.persistIndex = (newPageNumber - 1) * newPageSize;
 
     // update states and render UI
-    setStates(states);
-    renderUi();
+    updateUi(states);
   } catch (err) {
     console.error(err);
     return showError(err.message);

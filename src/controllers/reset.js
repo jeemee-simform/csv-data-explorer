@@ -1,6 +1,5 @@
-import { renderUi } from "../services/renderComponent.js";
 import { CONSTANTS } from "../utils/constants.js";
-import { getStates, setStates } from "../utils/helper.js";
+import { getStates, updateUi } from "../utils/helper.js";
 
 const handleResetBtn = () => {
   try {
@@ -26,8 +25,8 @@ const handleResetBtn = () => {
     };
     states.selectedRows = [];
 
-    setStates(states);
-    renderUi();
+    // update states and render UI
+    updateUi(states);
   } catch (err) {
     console.error(err);
     return showError(err.message);

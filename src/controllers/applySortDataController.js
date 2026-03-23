@@ -1,10 +1,10 @@
-import { renderUi } from "../services/renderComponent.js";
 import { sortFilteredData } from "../services/applySortData.js";
 import {
   getStates,
   hideLoader,
   setStates,
   showLoader,
+  updateUi,
 } from "../utils/helper.js";
 
 const handleSorting = (e) => {
@@ -34,7 +34,7 @@ const handleSorting = (e) => {
     // apply sort and render data
     console.time("Sort and render");
     sortFilteredData();
-    renderUi();
+    updateUi();
     console.timeEnd("Sort and render");
 
     hideLoader();

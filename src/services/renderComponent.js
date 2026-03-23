@@ -174,6 +174,8 @@ const renderUi = () => {
     currentPageNumberInput.max = states.pagination.totalPage;
     states.selectedRows = [];
   }
+
+  // update states
   setStates(states);
 };
 

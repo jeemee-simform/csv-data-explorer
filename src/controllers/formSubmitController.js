@@ -10,12 +10,15 @@ const handleFormSubmit = (e) => {
 
     submitBtn.disabled = true;
 
+    // create new row
     const newRow = createNewRow(form);
 
     if (!newRow) return;
 
+    // add in original data
     addRowToState(newRow);
 
+    // update filtered data from original data
     updateFilteredData();
 
     closeModal();

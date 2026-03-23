@@ -1,4 +1,5 @@
 import { sortFilteredData } from "../services/applySortData.js";
+import { renderUi } from "../services/renderComponent.js";
 import { searchData } from "../services/search.js";
 import { currentPageSize, loaderDiv, modalOverlay } from "./constants.js";
 
@@ -14,7 +15,7 @@ const formateDate = (date) => date.split("T")[0]; // convert date obj into strin
 
 // find out new page number from persistIndex
 const findPageNumber = (newPageSize, persistIndex) =>
-  !persistIndex ? 1 : Math.ceil(persistIndex / newPageSize);
+  !persistIndex ? 1 : Math.ceil(persistIndex / newPageSize + 1);
 
 // Set states in to local storage
 const setStates = (states) =>
@@ -60,6 +61,14 @@ const updateFilteredData = () => {
   updatePagination();
 };
 
+const updateUi = (states) => {
+  if (states) {
+    states.selectedRows = [];
+    setStates(states);
+  }
+  renderUi();
+};
+
 const searchWithDebounce = debounce(updateFilteredData, 300); // make search with debounce
 
 const closeModal = () => (modalOverlay.style.display = "none");
@@ -79,4 +88,5 @@ export {
   updatePagination,
   searchWithDebounce,
   closeModal,
+  updateUi,
 };

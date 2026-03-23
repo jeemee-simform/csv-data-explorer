@@ -1,4 +1,3 @@
-import { renderUi } from "../services/renderComponent.js";
 import { columnSearch } from "../utils/constants.js";
 import {
   debounce,
@@ -6,6 +5,7 @@ import {
   searchWithDebounce,
   setStates,
   updateFilteredData,
+  updateUi,
 } from "../utils/helper.js";
 
 const handleSearch = (e) => {
@@ -37,7 +37,7 @@ const handleColumnSearch = (e) => {
     const searchWithDebounce = debounce(updateFilteredData, 300);
     searchWithDebounce();
 
-    renderUi();
+    updateUi();
   } catch (err) {
     console.error(err);
     return showError(err.message);
