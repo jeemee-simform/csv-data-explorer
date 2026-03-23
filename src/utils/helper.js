@@ -15,7 +15,7 @@ const formateDate = (date) => date.split("T")[0]; // convert date obj into strin
 
 // find out new page number from persistIndex
 const findPageNumber = (newPageSize, persistIndex) =>
-  !persistIndex ? 1 : Math.ceil(persistIndex / newPageSize + 1);
+  !persistIndex ? 1 : Math.floor(persistIndex / newPageSize + 1);
 
 // Set states in to local storage
 const setStates = (states) =>
