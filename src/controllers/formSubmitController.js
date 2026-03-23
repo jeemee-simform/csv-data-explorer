@@ -1,5 +1,4 @@
 import { addRowToState, createNewRow } from "../services/formSubmit.js";
-import { submitBtn } from "../utils/constants.js";
 import { closeModal, showError, updateFilteredData } from "../utils/helper.js";
 
 const handleFormSubmit = (e) => {
@@ -7,8 +6,6 @@ const handleFormSubmit = (e) => {
     e.preventDefault();
 
     const form = e.target;
-
-    submitBtn.disabled = true;
 
     // create new row
     const newRow = createNewRow(form);

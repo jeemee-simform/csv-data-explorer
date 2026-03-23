@@ -50,7 +50,7 @@ const handleFileUpload = async (e) => {
     // render whole ui including (table and headers)
     updateUi();
 
-    setTimeout(() => hideLoader(), 0); // hide loader
+    setTimeout(() => hideLoader(), 300); // hide loader
   } catch (err) {
     console.error(err);
     return showError(err.message);
