@@ -5,7 +5,7 @@ import {
   closeModalBtn,
   cancelModalBtn,
 } from "../utils/constants.js";
-import { getStates, closeModal } from "../utils/helper.js";
+import { getStates, closeModal, showError } from "../utils/helper.js";
 
 const handleOpenAddModal = () => {
   try {
