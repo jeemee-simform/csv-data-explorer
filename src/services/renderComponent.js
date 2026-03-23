@@ -106,6 +106,12 @@ const renderTableHeaders = () => {
 
     const fragment = document.createDocumentFragment();
 
+    // create default all select option
+    const option = document.createElement("option");
+    option.value = "all";
+    option.textContent = "All column";
+    fragment.appendChild(option);
+
     headers.forEach((e) => {
       // create header cell
       const th = document.createElement("th");
@@ -138,6 +144,11 @@ const renderTableHeaders = () => {
       th.appendChild(arrow); // arrow append in header
       tr.appendChild(th); // header append in tr
     });
+
+    // make empty select
+    columnSearch.innerHTML = "";
+
+    // add all column into select
     columnSearch.appendChild(fragment); // add select column render
     thead.appendChild(tr); // hall tr append in thead
   }
